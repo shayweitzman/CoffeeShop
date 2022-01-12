@@ -5,6 +5,30 @@
     <title>Title</title>
 </head>
 <body>
-asfasfasfasfasf
+Welcome!
+
+{% if user.is_authenticated %}
+            {% if user.barista%}
+                <br>
+                    <a href="{% url 'AddClient' %}">Add Client</a>
+                    <br>
+            {% endif %}
+            {% if user.is_superuser %}
+                    <br>
+                    <a href="{% url 'AddBarista' %}">Add Barista</a>
+                    <br>
+                    <a href="{% url 'AddClient' %}">Add Client</a>
+                    <br>
+            {% endif %}
+<a href="{% url 'logoutuser' %}">Logout</a>
+{% else %}
+    Hi GUEST!
+    <a href="{% url 'Login' %}">Login</a>
+{% endif %}
+
+
+
+
+
 </body>
 </html>
