@@ -24,12 +24,16 @@ class MenuObj(models.Model):
     availability = models.BooleanField(default=True)
     ageLimitation = models.BooleanField(default=False)
     VIP = models.BooleanField(default=False)
-    morning = models.BooleanField(default=False)
-    lunch = models.BooleanField(default=False)
-    evning = models.BooleanField(default=False)
-    outside = models.BooleanField(default=False)
-    inside = models.BooleanField(default=False)
+    morning = models.BooleanField(default=True)
+    lunch = models.BooleanField(default=True)
+    evning = models.BooleanField(default=True)
+    outside = models.BooleanField(default=True)
+    inside = models.BooleanField(default=True)
+    drink = models.BooleanField(default=False)
+    DOTD = models.BooleanField(default=False)
     category = models.ManyToManyField(categoryMenu)
+    bought = models.IntegerField(default=0)
+
 
     def __str__(self):
         return self.name
