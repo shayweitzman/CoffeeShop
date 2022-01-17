@@ -29,7 +29,7 @@ class MenuObj(models.Model):
     evning = models.BooleanField(default=True)
     outside = models.BooleanField(default=True)
     inside = models.BooleanField(default=True)
-    drink = models.BooleanField(default=False)
+    #drink = models.BooleanField(default=False)
     DOTD = models.BooleanField(default=False)
     category = models.ManyToManyField(categoryMenu)
     bought = models.IntegerField(default=0)

@@ -24,7 +24,7 @@ from Home import views as HomeViews
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeViews.home, name="homepage"),
-    re_path('menu', include('Menu.urls')),
+    re_path('menuShow', include('Menu.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
