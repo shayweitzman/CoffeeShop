@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from Home import views as HomeViews
 from Authentication import views as AuthViews
+from Tables import views as TablesViews
 
 
 
@@ -31,6 +32,7 @@ urlpatterns = [
     path('logout/', AuthViews.logoutuser, name="logoutuser"),
     path('', HomeViews.home, name="homepage"),
     re_path('menuShow', include('Menu.urls')),
+    path('makeOrder/', TablesViews.order, name="order"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
