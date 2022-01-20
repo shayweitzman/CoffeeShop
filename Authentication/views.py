@@ -35,7 +35,6 @@ def AddClient(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
-            print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@222")
             Cart.objects.create(client=user.client)
             return redirect("homepage")
     else:
