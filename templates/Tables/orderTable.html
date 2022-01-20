@@ -6,9 +6,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>jQuery UI Datepicker - Default functionality</title>
+  <title>Make Order</title>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
   <script>
@@ -19,8 +18,52 @@
 </head>
 <body>
 
-<p>Date: <input type="text" id="datepicker"></p>
+<br>
+    <form method="POST">
+          {% csrf_token %}
+              <p>Choose other date: <input type="text" value="{{ date }}" id="datepicker" name="datepicker">
 
+    <label for="time">Choose time:</label>
+
+<select id="time" name="time">
+  <option value="10">10:00</option>
+  <option value="11">11:00</option>
+  <option value="12">12:00</option>
+  <option value="13">13:00</option>
+  <option value="14">14:00</option>
+  <option value="15">15:00</option>
+  <option value="16">16:00</option>
+  <option value="17">17:00</option>
+  <option value="18">18:00</option>
+  <option value="19">19:00</option>
+  <option value="20">20:00</option>
+  <option value="21">21:00</option>
+
+</select>
+
+        <button type="submit" class="btn btn-primary">Choose</button>
+          </form>
+</p>
+
+<br>
+<h2>Tables For {{ date }} {{ time }}:</h2>
+<br><br>
+{% for i in tables %}
+    <div class="card">
+  <div class="card-header">
+    Table {{ i.number }}
+  </div>
+  <div class="card-body">
+      {% if i.inside %}
+        <h5 class="card-title">Inside Table</h5>
+        {% else %}
+        <h5 class="card-title">Outside Table</h5>
+      {% endif %}
+    <p class="card-text">With {{ i.chairs }} chairs</p>
+    <a href="#" class="btn btn-primary">Make reservation</a>
+  </div>
+</div>
+{% endfor %}
 
 </body>
 </html>
