@@ -5,6 +5,7 @@ from django.db import IntegrityError
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import ExtendedUserCreationForm,BaristaProfileForm,ClientProfileForm
+from Cart.models import Cart
 
 
 # def signupuser(request):
@@ -34,6 +35,8 @@ def AddClient(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
+            print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@222")
+            Cart.objects.create(client=user.client)
             return redirect("homepage")
     else:
         form = ExtendedUserCreationForm()

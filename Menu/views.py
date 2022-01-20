@@ -1,8 +1,22 @@
 from django.shortcuts import render
 from Menu.models import MenuObj, categoryMenu
 from django.shortcuts import get_object_or_404
+from Cart.models import Cart
+from Authentication.models import Client
 
 def all_menu(request):
+    if request.method == "POST":
+        cart = Cart.objects.filter(client=request.POST.get("userID"))[0]
+        menuObj = MenuObj.objects.filter(id=request.POST.get("menuObjID"))[0]
+        if menuObj in cart.menuObjs.all():
+            print("manshmaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        else:
+            cart.menuObjs.add(menuObj)
+        #cart.menuObjs.add()
+
+        print(request.POST.get("menuObjID",""))
+        print(request.POST.get("userID", ""))
+
     menu = MenuObj.objects.all()
     categiries = categoryMenu.objects.all()
     return render(request, 'menu/all_menu.html', {'menu': menu, 'categiries': categiries})
