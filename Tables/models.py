@@ -3,6 +3,7 @@ from Authentication.models import Client
 from django.db.models.signals import post_save
 
 
+
 class Table(models.Model):
     number = models.IntegerField(unique=True)
     chairs = models.IntegerField(default=3)
@@ -22,3 +23,6 @@ class TableOrder(models.Model):
     clients = models.ForeignKey(Client, on_delete=models.CASCADE)
     time = models.TimeField(auto_now=False, auto_now_add=False)
     date = models.DateField(auto_now=False, auto_now_add=False)
+
+    class Meta:
+        unique_together = ('tables', 'time', 'date')

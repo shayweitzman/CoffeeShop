@@ -32,6 +32,7 @@ urlpatterns = [
     path('logout/', AuthViews.logoutuser, name="logoutuser"),
     path('', HomeViews.home, name="homepage"),
     re_path('menuShow', include('Menu.urls')),
+    path('makeOrder/', include('Tables.urls')),
     path('makeOrder/', TablesViews.order, name="order"),
 ]
 
