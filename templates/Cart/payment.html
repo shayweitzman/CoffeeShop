@@ -19,6 +19,16 @@
     width: 50px;
 }
     </style>
+    <script>
+        function yesnoCheck(that) {
+    if (that.value == "credit") {
+  alert("Proceeding you to payment..");
+        document.getElementById("ifYes").style.display = "block";
+    } else {
+        document.getElementById("ifYes").style.display = "none";
+    }
+}
+    </script>
 </head>
 
 <ul class="nav nav-tabs">
@@ -85,6 +95,20 @@
         <h3>{{ order }} X {{ quantity }}</h3><br>
     {% endfor %}
     Total:{{ sum }}
+    Payment method:
+<select onchange="yesnoCheck(this);">
+    <option value="cash">Cash</option>
+    <option value="credit">Credit</option>
+</select>
+
+<div id="ifYes" style="display: none;">
+    <label for="name">Full Name:</label> <input type="text" id="name" name="name" /><br />
+    <label for="phone">Phone number:</label> <input type="text" id="phone" name="phone" /><br />
+    <label for="ID">ID:</label> <input type="text" id="ID" name="ID" /><br />
+    <label for="cardnumber">Card Number:</label> <input type="text" id="cardnumber" name="cardnumber" /><br />
+    <label for="expire">Expire Date:</label> <input type="text" id="expire" name="expire" /><br />
+    <label for="CVV">CVV:</label> <input type="text" id="CVV" name="CVV" /><br />
+</div>
 <br><br>
 <button type="submit" class="btn btn-primary">Pay</button>
 </form>

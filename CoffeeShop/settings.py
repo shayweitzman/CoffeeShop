@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'Authentication',
     'Menu',
     'Cart',
-    'paypal.standard.ipn',
 ]
 
 MIDDLEWARE = [
