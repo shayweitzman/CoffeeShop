@@ -48,7 +48,7 @@
 </p>
 
 <br>
-{% if time == "please chose valid time" or time == "please chose valid date" %}
+{% if time == "please choose valid time" or time == "please choose valid date" %}
 <h2> {{ time }}: </h2>
 {% else %}
 <h2>Tables For {{ date }} {{ time }}:</h2>
@@ -66,13 +66,13 @@
         <h5 class="card-title">Outside Table</h5>
       {% endif %}
     <p class="card-text">With {{ table.chairs }} chairs</p>
-<input type="hidden" name="time" value="{{ time }}">
+<input type="hidden" name="time1" value="{{ time }}">
   <input type="hidden" name="date" value="{{ date }}">
   {% if user.client %}
     <button class="btn" value="{{ table.id }}"  name="reserved" >Make Resevation</button>
   {% else %}
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  <strong>Only claient can make resevation</strong> You should log in.
+  <strong>Only client can make resevation</strong> You should log in.
                 </div>
   {% endif %}
   </div>
