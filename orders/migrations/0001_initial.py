@@ -10,17 +10,19 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('Authentication', '0001_initial'),
-        ('Menu', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Cart',
+            name='Order',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('menuObjs', models.CharField(max_length=2000, null=True)),
+                ('quatities', models.CharField(max_length=2000, null=True)),
                 ('total', models.DecimalField(decimal_places=2, max_digits=6, null=True)),
-                ('client', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='Authentication.client')),
-                ('menuObjs', models.ManyToManyField(null=True, to='Menu.MenuObj')),
+                ('alreadyPrepared', models.BooleanField(default=False)),
+                ('paymentMethod', models.CharField(max_length=20, null=True)),
+                ('client', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Authentication.client')),
             ],
         ),
     ]

@@ -8,7 +8,6 @@ from django.db.models import Q
 
 
 def createOrder(request, table_id, time, date):
-    messages.warning(request, "Are you shore you whant to order the table to" + date + time, False)
     table = get_object_or_404(Table, pk=table_id)
     try:
         TableOrder.objects.create(clients=request.user.client, tables=table, time=time,
@@ -24,7 +23,8 @@ def order(request):
     if "reserved" in request.POST:
         if (
         not createOrder(request, request.POST.get("reserved"), request.POST.get("time1"), request.POST.get("date"))):
-            return HttpResponseRedirect("/Error the order didn't saverd/")
+            return render(request, 'Tables/orderTable.html',
+                          { 'time': "Table Already Taken!"})
         else:
             return render(request, "Tables/table_resevation.html",
                           {'table': get_object_or_404(Table, pk=request.POST.get("reserved")),

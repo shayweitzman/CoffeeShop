@@ -6,6 +6,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import ExtendedUserCreationForm,BaristaProfileForm,ClientProfileForm
 from Cart.models import Cart
+from orders.models import unPreparedOrders
 
 
 # def signupuser(request):
@@ -34,8 +35,7 @@ def AddClient(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
-            login(request, user)
-            print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@222")
+            #login(request, user)
             Cart.objects.create(client=user.client)
             return redirect("homepage")
     else:
@@ -57,7 +57,8 @@ def AddBarista(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
-            login(request, user)
+            user.barista.ordersToPrepare = unPreparedOrders
+            #login(request, user)
             return redirect("homepage")
     else:
         form = ExtendedUserCreationForm()
