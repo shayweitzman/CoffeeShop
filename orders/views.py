@@ -1,7 +1,9 @@
 from django.shortcuts import render,redirect
 from Authentication.models import Barista
+from Menu.models import MenuObj
 import json
 from orders.models import Order
+
 def myOrders(request):
     if request.POST:
         order = Order.objects.filter(id=request.POST.get("ready"))
@@ -29,10 +31,18 @@ def PlaceOrder(request):
         orders = request.POST.getlist("orders")
         totalPrice = request.POST.get("sum")
         payMethod = request.POST.get("method")
+        updateBought(orders,quantities)
+
         updateBaristas(1)
         Order.objects.create(client=request.user.client,paymentMethod= payMethod,menuObjs=json.dumps(orders),quatities=json.dumps(quantities),total=totalPrice,alreadyPrepared=False)
-
     return redirect('/')
+
+def updateBought(orders,quantities):
+    for (objName,quantity) in zip(orders,quantities):
+        menuObj = MenuObj.objects.filter(name=objName)[0]
+        menuObj.bought += int(quantity)
+        menuObj.save()
+
 
 
 def updateBaristas(val):

@@ -36,7 +36,7 @@
         <input type="hidden" name="quatities" value="{{ quantity }}">
         <h3>{{ order }} X {{ quantity }}</h3><br>
     {% endfor %}
-    <h2>Total:{{ sum }}</h2><br>
+    <h2>Total:{{ sum }}</h2><br> <h5 style="color: green">{{ msg }}</h5>
     Payment method:
 <select value = none name = "method" onchange="yesnoCheck(this);">
     <option value="Cash">Cash</option>
@@ -53,7 +53,7 @@
     <input type="hidden" name="paymentmethod" value="credit">
     <h2><button  onclick="myFunction() "type="submit"  class="btn btn-primary">Pay</button></h2>
 </div>
-<div id="ifNo" style="display: block;">
+<div id="ifNo" style="display: block;"><br>
 <h2><button  onclick="myFunction()" type="submit"  class="btn btn-primary">Place Order</button></h2>
     <input type="hidden" name="paymentmethod" value="cash">
 </div>

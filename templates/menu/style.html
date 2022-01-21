@@ -88,7 +88,9 @@
     <a class="nav-link active" href="{% url 'logoutuser' %}">LogOut</a>
   </li>
      {% else %}
+     <li class="nav ms-auto">
     <a class="nav-link active" href="{% url 'Login' %}">Login</a>
+     </li>
 {% endif %}
 </ul>
 
