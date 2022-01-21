@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from Menu.models import MenuObj, categoryMenu
-from django.shortcuts import get_object_or_404
+
 
 def all_menu(request):
     menu = MenuObj.objects.all()

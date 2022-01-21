@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'Home',
     'Authentication',
     'Menu',
+    'Tables',
 ]
 
 MIDDLEWARE = [
