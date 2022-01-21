@@ -20,6 +20,7 @@ from django.conf import settings
 from Home import views as HomeViews
 from Authentication import views as AuthViews
 from Cart import views as CartViews
+from orders import views as OrdersViews
 
 
 urlpatterns = [
@@ -30,7 +31,8 @@ urlpatterns = [
     path('Login/', AuthViews.loginU, name="Login"),
     path('logout/', AuthViews.logoutuser, name="logoutuser"),
     path('Cart/', CartViews.Cart, name="cart"),
-    path('PlaceOrder/', CartViews.PlaceOrder, name="PlaceOrder"),
+    path('PlaceOrder/', OrdersViews.PlaceOrder, name="PlaceOrder"),
+    path('myOrders/', OrdersViews.myOrders, name="myOrders"),
     path('', HomeViews.home, name="homepage"),
     re_path('menuShow', include('Menu.urls')),
 ]

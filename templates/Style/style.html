@@ -53,13 +53,15 @@
     {% if user.barista %}
  <li class="nav-item ms-auto">
         {% if user.barista.ordersToPrepare == 0  %}
-            <a class="nav-link active" href="{% url 'cart' %}" role="button" aria-haspopup="true" aria-expanded="true">Orders({{ user.barista.ordersToPrepare }})</a>
+            <a class="nav-link active" href="{% url 'myOrders' %}" role="button" aria-haspopup="true" aria-expanded="true">Orders({{ user.barista.ordersToPrepare }})</a>
             {% else %}
-            <a class="nav-link active" href="{% url 'cart' %}" role="button" aria-haspopup="true" aria-expanded="true"><h5 style="color: red">Orders({{ user.barista.ordersToPrepare }})</h5></a>
+            <a class="nav-link active" href="{% url 'myOrders' %}" role="button" aria-haspopup="true" aria-expanded="true"><h5 style="color: red">Orders({{ user.barista.ordersToPrepare }})</h5></a>
             {% endif %}
   </li>
     {% endif %}
-
+    {% if user.client %}
+  <a class="nav-link active" href="{% url 'myOrders' %}">My Orders</a>
+    {% endif %}
  {% if user.is_authenticated %}
 
     <a class="nav-link active" href="{% url 'logoutuser' %}">LogOut</a>

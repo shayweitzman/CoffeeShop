@@ -12,7 +12,7 @@
     document.getElementById('ifNo').style.display = 'block';
 }
         function yesnoCheck(that) {
-    if (that.value == "credit") {
+    if (that.value == "Credit") {
   alert("Proceeding you to payment..");
         document.getElementById("ifYes").style.display = "block";
         document.getElementById("ifNo").style.display = "none";
@@ -28,16 +28,19 @@
 <body>
 <div align="center">
 <form action="{% url 'PlaceOrder' %}" method="POST">{% csrf_token %}
+    <input type="hidden" name="sum" value="{{ sum }}">
 <br><br>
     <h3>Order Summary:</h3><br>
     {% for order,quantity in summary %}
+        <input type="hidden" name="orders" value={{ order }}>
+        <input type="hidden" name="quatities" value="{{ quantity }}">
         <h3>{{ order }} X {{ quantity }}</h3><br>
     {% endfor %}
     <h2>Total:{{ sum }}</h2><br>
     Payment method:
-<select value = none onchange="yesnoCheck(this);">
-    <option value="cash">Cash</option>
-    <option value="credit">Credit</option>
+<select value = none name = "method" onchange="yesnoCheck(this);">
+    <option value="Cash">Cash</option>
+    <option value="Credit">Credit</option>
 </select>
 
 <div id="ifYes" style="display: block;">
@@ -47,10 +50,12 @@
     <label for="cardnumber">Card Number:</label> <input type="text" id="cardnumber" name="cardnumber" /><br><br>
     <label for="expire">Expire Date:</label> <input type="text" id="expire" name="expire" /><br><br>
     <label for="CVV">CVV:</label> <input type="text" id="CVV" name="CVV" /><br></h6><br>
+    <input type="hidden" name="paymentmethod" value="credit">
     <h2><button  onclick="myFunction() "type="submit"  class="btn btn-primary">Pay</button></h2>
 </div>
 <div id="ifNo" style="display: block;">
 <h2><button  onclick="myFunction()" type="submit"  class="btn btn-primary">Place Order</button></h2>
+    <input type="hidden" name="paymentmethod" value="cash">
 </div>
 
 <script>
@@ -59,8 +64,6 @@ function myFunction() {
 }
 </script>
 
-<input type="hidden" name="summary" value=summary>
-<input type="hidden" name="total" value=sum>
 </form>
     </div>
 </body>

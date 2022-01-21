@@ -1,0 +1,50 @@
+{% extends 'Style/style.html' %}
+{% load indexfilter %}
+{% block content %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form method="POST">
+          {% csrf_token %}
+
+{% for i in size %}
+    <div class="card">
+  <div class="card-header">
+     Order #{{ i|add:"1" }} By: {{ orders|lookupusername:i }}:
+  </div>
+  <div class="card-body">
+      {% for item in items|lookup:i %}
+          {{ item }} X {{  quantities|lookup:i|lookup:forloop.counter0}}
+          <br>
+          {% endfor %}
+      Total : {{ total|lookup:i }}, Payment method : {{ orders|lookupmethod:i }}<br>
+  {% if user.barista or user.issuperuser %}
+    <button name="ready" value="{{ orders|lookupid:i }}" class="btn"></i>Ready&#10004;</button></h5>
+{% endif %}
+      <br><br>
+
+
+      <br>
+
+  </div>
+</div>
+{% endfor %}
+<br><br>
+
+
+
+          </form>
+</body>
+</html>
+
+{% endblock %}
+<!DOCTYPE html>
+
+
+
+

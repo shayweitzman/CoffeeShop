@@ -29,7 +29,7 @@
       </p>
         <p class="card-text">{{ i.description }}</p>
         <p class="card-text"><small class="text-muted">{{ i.price }}</small></p>
-      {% if user.client %}
+      {% if user.client and i.availability == True %}
           <form method="POST">
           {% csrf_token %}
               <input type="hidden" name="menuObjID" value="{{ i.id }}">
