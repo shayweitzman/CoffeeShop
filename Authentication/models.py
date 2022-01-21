@@ -11,7 +11,7 @@ import datetime
 class Barista(models.Model):
     user=models.OneToOneField(User, on_delete=models.CASCADE)
     type=models.CharField(max_length=50,default='Barista')
-
+    ordersToPrepare= models.IntegerField(default=0)
     def __str__(self):
         return self.user.username
 

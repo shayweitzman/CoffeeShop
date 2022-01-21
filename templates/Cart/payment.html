@@ -1,3 +1,4 @@
+
 {% extends 'Style/style.html' %}
 {% block content %}
 <!DOCTYPE html>
@@ -5,35 +6,70 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+       <script>
+            window.onload = function() {
+    document.getElementById('ifYes').style.display = 'none';
+    document.getElementById('ifNo').style.display = 'block';
+}
+        function yesnoCheck(that) {
+    if (that.value == "credit") {
+  alert("Proceeding you to payment..");
+        document.getElementById("ifYes").style.display = "block";
+        document.getElementById("ifNo").style.display = "none";
+    }
+    else {
+        document.getElementById("ifNo").style.display = "block";
+        document.getElementById("ifYes").style.display = "none";
+    }
+
+}
+    </script>
 </head>
 <body>
-<form method="POST">{% csrf_token %}
+<div align="center">
+<form action="{% url 'PlaceOrder' %}" method="POST">{% csrf_token %}
 <br><br>
-    <h3>Summary:</h3><br>
+    <h3>Order Summary:</h3><br>
     {% for order,quantity in summary %}
         <h3>{{ order }} X {{ quantity }}</h3><br>
     {% endfor %}
-    Total:{{ sum }}
+    <h2>Total:{{ sum }}</h2><br>
     Payment method:
-<select onchange="yesnoCheck(this);">
+<select value = none onchange="yesnoCheck(this);">
     <option value="cash">Cash</option>
     <option value="credit">Credit</option>
 </select>
 
-<div id="ifYes" style="display: none;">
-    <label for="name">Full Name:</label> <input type="text" id="name" name="name" /><br />
-    <label for="phone">Phone number:</label> <input type="text" id="phone" name="phone" /><br />
-    <label for="ID">ID:</label> <input type="text" id="ID" name="ID" /><br />
-    <label for="cardnumber">Card Number:</label> <input type="text" id="cardnumber" name="cardnumber" /><br />
-    <label for="expire">Expire Date:</label> <input type="text" id="expire" name="expire" /><br />
-    <label for="CVV">CVV:</label> <input type="text" id="CVV" name="CVV" /><br />
+<div id="ifYes" style="display: block;">
+    <h6><label for="name">Full Name:</label> <input type="text" id="name" name="name" /><br><br>
+    <label for="phone">Phone number:</label> <input type="text" id="phone" name="phone" /><br><br>
+    <label for="ID">ID:</label> <input type="text" id="ID" name="ID" /><br><br>
+    <label for="cardnumber">Card Number:</label> <input type="text" id="cardnumber" name="cardnumber" /><br><br>
+    <label for="expire">Expire Date:</label> <input type="text" id="expire" name="expire" /><br><br>
+    <label for="CVV">CVV:</label> <input type="text" id="CVV" name="CVV" /><br></h6><br>
+    <h2><button  onclick="myFunction() "type="submit"  class="btn btn-primary">Pay</button></h2>
 </div>
-<br><br>
-<button type="submit" class="btn btn-primary">Pay</button>
+<div id="ifNo" style="display: block;">
+<h2><button  onclick="myFunction()" type="submit"  class="btn btn-primary">Place Order</button></h2>
+</div>
+
+<script>
+function myFunction() {
+  alert("Thank you {{ user.username }}! , It'll be ready as soon as possible!\n Notice: You can't modify your order after we started preparing it!");
+}
+</script>
+
+<input type="hidden" name="summary" value=summary>
+<input type="hidden" name="total" value=sum>
 </form>
+    </div>
 </body>
 </html>
 {% endblock %}
+
+
+
+
 
 
 

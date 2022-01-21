@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from Cart.models import Cart as Carts
 from Menu.models import MenuObj
-# Create your views here.
+import orders.models as x
+from orders.models import Order
 
 def Cart(request):
     cart = Carts.objects.filter(client=request.user.client)[0]
@@ -19,5 +20,12 @@ def Cart(request):
             summary= zip(orders,quantities)
             return render(request, 'Cart/payment.html', {'summary':summary,'sum':sum})
     return render(request,'Cart/cart.html',{'cart':cart})
+
+def PlaceOrder(request):
+    if request.POST:
+        x.unPreparedOrders += 1
+        Order.objects.create(client=,menuObj=,total=,alreadyPrepared=False)
+
+    return redirect('/')
 
 

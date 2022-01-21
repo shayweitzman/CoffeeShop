@@ -30,6 +30,7 @@ urlpatterns = [
     path('Login/', AuthViews.loginU, name="Login"),
     path('logout/', AuthViews.logoutuser, name="logoutuser"),
     path('Cart/', CartViews.Cart, name="cart"),
+    path('PlaceOrder/', CartViews.PlaceOrder, name="PlaceOrder"),
     path('', HomeViews.home, name="homepage"),
     re_path('menuShow', include('Menu.urls')),
 ]
