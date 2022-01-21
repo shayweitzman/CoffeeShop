@@ -15,7 +15,7 @@
 {% for i in size %}
     <div class="card">
   <div class="card-header">
-     Order #{{ i|add:"1" }} By: {{ orders|lookupusername:i }}:
+     Order #{{ i|add:"1" }} By: {{ orders|lookupusername:i }}
   </div>
   <div class="card-body">
       {% for item in items|lookup:i %}

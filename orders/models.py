@@ -10,6 +10,7 @@ unPreparedOrders = 0
 
 
 class Order(models.Model):
+    fullname= models.CharField(max_length=2000,null=True)
     client=models.ForeignKey(Client, on_delete=models.CASCADE)
     menuObjs = models.CharField(max_length=2000,null=True)
     quatities = models.CharField(max_length=2000, null=True)

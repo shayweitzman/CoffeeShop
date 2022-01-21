@@ -3,6 +3,7 @@ from Menu.models import MenuObj, categoryMenu
 from django.shortcuts import get_object_or_404
 from Cart.models import Cart
 from Authentication.models import Client
+from datetime import date
 
 
 def all_menu(request):
@@ -16,8 +17,22 @@ def all_menu(request):
             msg = 'Product added successfully!'
             cart.menuObjs.add(menuObj)
     menu = MenuObj.objects.all()
+    if request.user.is_authenticated:
+        try:
+            age = calcAge(request.user.client.birthday)
+            if age<18:
+                menu = MenuObj.objects.filter(ageLimitation=False)
+        except:
+            pass
+    elif not request.user.is_authenticated:
+        menu = MenuObj.objects.filter(ageLimitation=False)
     categiries = categoryMenu.objects.all()
     return render(request, 'menu/all_menu.html', {'menu': menu, 'categiries': categiries,'msg':msg})
+
+def calcAge(birthdate):
+    today = date.today()
+    age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+    return age
 
 
 def sort(request):

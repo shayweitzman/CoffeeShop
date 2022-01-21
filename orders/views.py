@@ -31,10 +31,11 @@ def PlaceOrder(request):
         orders = request.POST.getlist("orders")
         totalPrice = request.POST.get("sum")
         payMethod = request.POST.get("method")
+        orderName = request.POST.get("name")
         updateBought(orders,quantities)
 
         updateBaristas(1)
-        Order.objects.create(client=request.user.client,paymentMethod= payMethod,menuObjs=json.dumps(orders),quatities=json.dumps(quantities),total=totalPrice,alreadyPrepared=False)
+        Order.objects.create(client=request.user.client,fullname=orderName,paymentMethod= payMethod,menuObjs=json.dumps(orders),quatities=json.dumps(quantities),total=totalPrice,alreadyPrepared=False)
     return redirect('/')
 
 def updateBought(orders,quantities):

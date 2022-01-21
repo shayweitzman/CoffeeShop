@@ -44,12 +44,12 @@
 </select>
 
 <div id="ifYes" style="display: block;">
-    <h6><label for="name">Full Name:</label> <input type="text" id="name" name="name" /><br><br>
-    <label for="phone">Phone number:</label> <input type="text" id="phone" name="phone" /><br><br>
-    <label for="ID">ID:</label> <input type="text" id="ID" name="ID" /><br><br>
-    <label for="cardnumber">Card Number:</label> <input type="text" id="cardnumber" name="cardnumber" /><br><br>
-    <label for="expire">Expire Date:</label> <input type="text" id="expire" name="expire" /><br><br>
-    <label for="CVV">CVV:</label> <input type="text" id="CVV" name="CVV" /><br></h6><br>
+    <h6><label for="name">Full Name:</label> <input type="text" id="name" name="name" required/><br><br>
+    <label for="phone">Phone number:</label> <input type="text" id="phone" name="phone"required /><br><br>
+    <label for="ID">ID:</label> <input type="text" id="ID" name="ID" required/><br><br>
+    <label for="cardnumber">Card Number:</label> <input type="text" id="cardnumber" name="cardnumber" required/><br><br>
+    <label for="expire">Expire Date:</label> <input type="text" id="expire" name="expire" required/><br><br>
+    <label for="CVV">CVV:</label> <input type="text" id="CVV" name="CVV" required/><br></h6><br>
     <input type="hidden" name="paymentmethod" value="credit">
     <h2><button  onclick="myFunction() "type="submit"  class="btn btn-primary">Pay</button></h2>
 </div>

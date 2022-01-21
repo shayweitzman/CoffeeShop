@@ -8,6 +8,8 @@ def lookupid(d, key):
     return d[key].id
 @register.filter
 def lookupusername(d, key):
+    if d[key].client.Is_VIP:
+        return str(d[key].fullname) + ' VIP User'
     return d[key].client.user
 @register.filter
 def lookupmethod(d, key):
