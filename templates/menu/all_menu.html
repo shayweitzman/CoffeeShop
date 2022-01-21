@@ -34,7 +34,10 @@
           {% csrf_token %}
               <input type="hidden" name="menuObjID" value="{{ i.id }}">
               <input type="hidden" name="userID" value="{{ user.client.id }}">
-        <button type="submit" class="btn btn-primary">Add to cart</button>
+
+
+              <button type="submit"  class="btn btn-primary">Add to cart</button><br>
+                 <h4>{{ msg }}</h4>
           </form>
       {% endif %}
       </div>
