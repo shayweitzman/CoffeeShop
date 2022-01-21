@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from Cart.models import Cart
 from Authentication.models import Client
 
+
 def all_menu(request):
     if request.method == "POST":
         cart = Cart.objects.filter(client=request.POST.get("userID"))[0]

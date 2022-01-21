@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'Authentication',
     'Menu',
     'Cart',
+    'Tables',
 ]
 
 MIDDLEWARE = [

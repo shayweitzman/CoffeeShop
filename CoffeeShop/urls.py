@@ -20,6 +20,8 @@ from django.conf import settings
 from Home import views as HomeViews
 from Authentication import views as AuthViews
 from Cart import views as CartViews
+from Tables import views as TablesViews
+
 
 
 urlpatterns = [
@@ -32,6 +34,8 @@ urlpatterns = [
     path('Cart/', CartViews.Cart, name="cart"),
     path('', HomeViews.home, name="homepage"),
     re_path('menuShow', include('Menu.urls')),
+    path('makeOrder/', include('Tables.urls')),
+    path('makeOrder/', TablesViews.order, name="order"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
