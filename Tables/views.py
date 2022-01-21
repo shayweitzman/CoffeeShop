@@ -22,9 +22,9 @@ def order(request):
     time = datetime.time(datetime.datetime.today().hour + 1)
     if "reserved" in request.POST:
         if (
-        not createOrder(request, request.POST.get("reserved"), request.POST.get("time1"), request.POST.get("date"))):
-            return render(request, 'Tables/orderTable.html',
-                          { 'time': "Table Already Taken!"})
+                not createOrder(request, request.POST.get("reserved"), request.POST.get("time1"),
+                                request.POST.get("date"))):
+            return render(request, 'Tables/orderTable.html', {"time": request.POST.get("time1"), 'error': "Table Already Taken!"})
         else:
             return render(request, "Tables/table_resevation.html",
                           {'table': get_object_or_404(Table, pk=request.POST.get("reserved")),

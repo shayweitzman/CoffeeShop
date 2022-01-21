@@ -9,7 +9,7 @@ class Table(models.Model):
     chairs = models.IntegerField(default=3)
     inside = models.BooleanField(default=True)
     Days_CHOICES = (
-        ('', ''), ('Sunday', 'Sunday'), ('Monday', 'Monday'), ('Tuesday', 'Tuesday'), ('Wednesday', 'Wednesday'),
+        ('None', 'None'), ('Sunday', 'Sunday'), ('Monday', 'Monday'), ('Tuesday', 'Tuesday'), ('Wednesday', 'Wednesday'),
         ('Thursday', 'Thursday')
     )
     UnavailabDay = models.CharField(default='', choices=Days_CHOICES, max_length=100)

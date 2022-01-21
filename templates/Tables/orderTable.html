@@ -47,8 +47,9 @@
 
 </p>
 
-<br>
-{% if time == "please choose valid time" or time == "please choose valid date" %}
+<br>{% if error %}
+    <h2>{{ error}}</h2>
+{% elif time == "please choose valid time" or time == "please choose valid date" %}
 <h2> {{ time }}: </h2>
 {% else %}
 <h2>Tables For {{ date }} {{ time }}:</h2>
