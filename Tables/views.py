@@ -10,25 +10,25 @@ from django.db.models import Q
 def createOrder(request, table_id, time, date):
     table = get_object_or_404(Table, pk=table_id)
     try:
-        TableOrder.objects.create(clients=request.user.client, tables=table, time=time,
+        x= TableOrder.objects.create(clients=request.user.client, tables=table, time=time,
                                   date=date.split('/')[2] + '-' + date.split('/')[0] + '-' + date.split('/')[1])
     except:
-        return 0
-    return 1
+        return "error"
+    return x.id
 
 
 def order(request):
     date1 = datetime.datetime.today()
     time = datetime.time(datetime.datetime.today().hour + 1)
     if "reserved" in request.POST:
-        if (
-                not createOrder(request, request.POST.get("reserved"), request.POST.get("time1"),
-                                request.POST.get("date"))):
+        orderID= createOrder(request, request.POST.get("reserved"), request.POST.get("time1"),
+                                request.POST.get("date"))
+        if (orderID == "error"):
             return render(request, 'Tables/orderTable.html', {"time": request.POST.get("time1"), 'error': "Table Already Taken!"})
         else:
             return render(request, "Tables/table_resevation.html",
                           {'table': get_object_or_404(Table, pk=request.POST.get("reserved")),
-                           "time": request.POST.get("time1"), "date": request.POST.get("date")})
+                           "time": request.POST.get("time1"), "date": request.POST.get("date"),"orderID":orderID})
     elif request.POST:
         try:
             date1 = datetime.datetime.strptime(request.POST.get("datepicker"), "%m/%d/%Y")

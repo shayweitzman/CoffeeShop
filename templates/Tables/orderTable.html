@@ -70,7 +70,7 @@
 <input type="hidden" name="time1" value="{{ time }}">
   <input type="hidden" name="date" value="{{ date }}">
   {% if user.client %}
-    <button class="btn" value="{{ table.id }}"  name="reserved" >Make Resevation</button>
+    <button class="btn" value="{{ table.id }}" style="background: green;color: white" name="reserved" >Make Resevation</button>
   {% else %}
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
   <strong>Only client can make resevation</strong> You should log in.
