@@ -6,9 +6,15 @@ from orders.models import Order
 
 def myOrders(request):
     if request.POST:
-        order = Order.objects.filter(id=request.POST.get("ready"))
-        order[0].delete()
-        updateBaristas(-1)
+        if "remove" in request.POST:
+            print(request.POST.get("remove"))
+            order = Order.objects.filter(id=request.POST.get("remove"))
+            order[0].delete()
+            updateBaristas(-1)
+        else:
+            order = Order.objects.filter(id=request.POST.get("ready"))
+            order[0].delete()
+            updateBaristas(-1)
     try:
         if request.user.client:
             orders = Order.objects.filter(client=request.user.client,alreadyPrepared=False)
@@ -26,7 +32,6 @@ def myOrders(request):
     return render(request,'Orders/myOrders.html',{'orders':orders,'items':items,'quantities':quantities,'size':range(0,numOfOrders),'total':total})
 
 def PlaceOrder(request):
-    print("HERE")
     if request.POST:
         quantities = request.POST.getlist("quatities")
         orders = request.POST.getlist("orders")

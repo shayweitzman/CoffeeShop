@@ -7,8 +7,6 @@ def Cart(request):
     if not request.user.is_authenticated:
         sum = 0
         object = MenuObj.objects.filter(id=request.POST.get("menuObjID"))[0]
-        print(object)
-
         if object.lunch:
             sum += round((float(object.price) * 0.8), 2)
         else:
@@ -38,6 +36,7 @@ def Cart(request):
                         sum -= discount
                         msg = str(discount)+" Discounted from the bill, You are VIP!"
                 summary= zip(orders,quantities)
+                cart.menuObjs.clear()
                 return render(request, 'Cart/payment.html', {'summary':summary,'sum':sum,'msg':msg})
     return render(request,'Cart/cart.html',{'cart':cart})
 
