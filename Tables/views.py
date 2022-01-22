@@ -19,7 +19,10 @@ def createOrder(request, table_id, time, date):
 
 def order(request):
     date1 = datetime.datetime.today()
-    time = datetime.time(datetime.datetime.today().hour + 1)
+    x = datetime.datetime.today().hour + 1
+    if x>23:
+        x = 10
+    time = datetime.time(x)
     if "reserved" in request.POST:
         orderID= createOrder(request, request.POST.get("reserved"), request.POST.get("time1"),
                                 request.POST.get("date"))
