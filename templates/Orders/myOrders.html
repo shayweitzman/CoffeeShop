@@ -6,6 +6,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
     <title>Title</title>
+       <script>
+function createOptions(optionName, times) {
+  for (var x = 0; x <= times; x++) {
+    var option = document.createElement('option');
+    option.value = optionName + x;
+    option.innerHTML = optionName + x;
+    document.getElementById('selectOption').appendChild(option)
+
+  }
+}
+
+var _boats = createOptions('Boat', 5);
+var _jets = createOptions('Jet', 5);
+var _trucks = createOptions('Truck', 5);
+
+
+function myFunction(elem) {
+  console.log(elem.value)
+
+}
+function showDiv(that) {
+   document.getElementById('welcomeDiv'+that).style.display = "block";
+}
+    </script>
 </head>
 <body>
 
@@ -13,9 +37,10 @@
           {% csrf_token %}
 
 {% for i in size %}
+    <input type="hidden" name="index" value="{{ i }}">
     <div class="card">
   <div class="card-header">
-     Order #{{ i|add:"1" }} By: {{ orders|lookupusername:i }}:
+     Order #{{ i|add:"1" }} By: {{ orders|lookupusername:i }}
   </div>
   <div class="card-body">
       {% for item in items|lookup:i %}
@@ -23,13 +48,18 @@
           <br>
           {% endfor %}
       Total : {{ total|lookup:i }}, Payment method : {{ orders|lookupmethod:i }}<br>
+    <input type="button" name="answer" value="Edit Order" onclick="showDiv({{ i }})" />
+<div id="welcomeDiv{{ i }}"  style="display:none;" class="answer_list" >
+       <button name="remove" value="{{ orders|lookupid:i }}" class="btn"><i class="fa fa-trash"></i> Remove item</button>
+
+</div>
   {% if user.barista or user.issuperuser %}
     <button name="ready" value="{{ orders|lookupid:i }}" class="btn"></i>Ready&#10004;</button></h5>
 {% endif %}
-      <br><br>
 
 
       <br>
+
 
   </div>
 </div>
@@ -39,6 +69,7 @@
 
 
           </form>
+
 </body>
 </html>
 

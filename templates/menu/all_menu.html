@@ -1,5 +1,6 @@
 <!-- CSS only -->
 {% extends "menu/style.html" %}
+{% load mathfilters %}
 {% block contect %}
 
 <div class="container">
@@ -15,7 +16,7 @@
         <h5 class="card-title">{{ i.name }}</h5>
       <p align="right">
           {% if i.VIP %}
-          <span>🌟</span> {%  comment %} <span title="your message">🌟</span> {% endcomment %}
+          <span>🌟</span>
           {% endif %}
           {% if i.DOTD %}
           <span>🔥</span>
@@ -28,15 +29,26 @@
           {% endif %}
       </p>
         <p class="card-text">{{ i.description }}</p>
-        <p class="card-text"><small class="text-muted">{{ i.price }}</small></p>
+        {% if i.lunch  %}
+       <small class="text-muted"><strike>{{ i.price }}</strike></small>  <h6> Business Lunch Price:<small class="text-muted">{{ i.price|mul:0.8 }}</small></h6>
+
+        {% else %}
+            <p class="card-text"><small class="text-muted">{{ i.price }}</small></p>
+      {% endif %}
       {% if user.client and i.availability == True %}
           <form method="POST">
           {% csrf_token %}
               <input type="hidden" name="menuObjID" value="{{ i.id }}">
               <input type="hidden" name="userID" value="{{ user.client.id }}">
-
-
               <button type="submit"  class="btn btn-primary">Add to cart</button><br>
+                 <h4>{{ msg }}</h4>
+          </form>
+      {% endif %}
+      {% if not user.is_authenticated  and i.availability == True %}
+          <form method="POST" action="{% url 'cart' %} ">
+          {% csrf_token %}
+              <input type="hidden" name="menuObjID" value="{{ i.id }}">
+              <button type="submit"  class="btn btn-primary">Order</button><br>
                  <h4>{{ msg }}</h4>
           </form>
       {% endif %}
