@@ -58,6 +58,11 @@
             <a class="nav-link active" href="{% url 'myOrders' %}" role="button" aria-haspopup="true" aria-expanded="true"><h5 style="color: red">Orders({{ user.barista.ordersToPrepare }})</h5></a>
             {% endif %}
   </li>
+        <li class="nav-item ms-auto">
+        {% if user.barista.ordersToPrepare == 0  %}
+            <a class="nav-link active" href="{% url 'table_orders' %}" role="button">Edit table orders</a>
+         {% endif %}
+    </li>
     {% endif %}
     {% if user.client %}
   <a class="nav-link active" href="{% url 'myOrders' %}">My Orders</a>

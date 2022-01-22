@@ -19,8 +19,8 @@ class Table(models.Model):
 
 
 class TableOrder(models.Model):
-    tables = models.ForeignKey(Table, on_delete=models.CASCADE)
-    clients = models.ForeignKey(Client, on_delete=models.CASCADE)
+    tables = models.ForeignKey(Table, on_delete=models.CASCADE) #change to table
+    clients = models.ForeignKey(Client, on_delete=models.CASCADE) #change to client
     time = models.TimeField(auto_now=False, auto_now_add=False)
     date = models.DateField(auto_now=False, auto_now_add=False)
 
