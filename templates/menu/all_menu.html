@@ -44,7 +44,7 @@
                  <h4>{{ msg }}</h4>
           </form>
       {% endif %}
-      {% if not user.isauthenticate and i.availability == True %}
+      {% if not user.is_authenticated  and i.availability == True %}
           <form method="POST" action="{% url 'cart' %} ">
           {% csrf_token %}
               <input type="hidden" name="menuObjID" value="{{ i.id }}">

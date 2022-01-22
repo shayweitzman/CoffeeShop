@@ -26,6 +26,7 @@ def myOrders(request):
     return render(request,'Orders/myOrders.html',{'orders':orders,'items':items,'quantities':quantities,'size':range(0,numOfOrders),'total':total})
 
 def PlaceOrder(request):
+    print("HERE")
     if request.POST:
         quantities = request.POST.getlist("quatities")
         orders = request.POST.getlist("orders")
@@ -33,9 +34,13 @@ def PlaceOrder(request):
         payMethod = request.POST.get("method")
         orderName = request.POST.get("name")
         updateBought(orders,quantities)
-
         updateBaristas(1)
-        Order.objects.create(client=request.user.client,fullname=orderName,paymentMethod= payMethod,menuObjs=json.dumps(orders),quatities=json.dumps(quantities),total=totalPrice,alreadyPrepared=False)
+        if not request.user.is_authenticated:
+            Order.objects.create(client=None,fullname=orderName,paymentMethod= payMethod,menuObjs=json.dumps(orders),quatities=json.dumps(quantities),total=totalPrice,alreadyPrepared=False)
+        else:
+            Order.objects.create(client=request.user.client, fullname=orderName, paymentMethod=payMethod,
+                             menuObjs=json.dumps(orders), quatities=json.dumps(quantities), total=totalPrice,
+                             alreadyPrepared=False)
     return redirect('/')
 
 def updateBought(orders,quantities):
