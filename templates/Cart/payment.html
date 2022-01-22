@@ -32,8 +32,7 @@
 <br><br>
     <h3>Order Summary:</h3><br>
     {% for order,quantity in summary %}
-        <input type="hidden" name="orders" value={{ order }}>
-        <input type="hidden" name="quatities" value="{{ quantity }}">
+        <input type="hidden" name="summary" value="{{ quantity }}${{ order }}">
         <h3>{{ order }} X {{ quantity }}</h3><br>
     {% endfor %}
     <h2>Total:{{ sum }}</h2><br> <h5 style="color: green">{{ msg }}</h5>

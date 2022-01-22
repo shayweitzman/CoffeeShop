@@ -7,12 +7,12 @@ from Tables.models import TableOrder
 import datetime
 from .forms import TableOrderForm
 from django.shortcuts import get_object_or_404
+from Cart.models import Cart as Carts
 
 
 def myOrders(request):
     if request.POST:
         if "remove" in request.POST:
-            print(request.POST.get("remove"))
             order = Order.objects.filter(id=request.POST.get("remove"))
             order[0].delete()
             updateBaristas(-1)
@@ -41,11 +41,14 @@ def myOrders(request):
 
 def TableOrders(request):
     orders = list(TableOrder.objects.all())
+    orders = TableOrder.objects.order_by('date')
     orders = list(filter(lambda x: x.date > datetime.date.today(), orders))
+
     return render(request, 'orders/tableOrders.html', {'orders': orders})
 
 
 def editTorder(request, table_id):
+    msg =''
     currentOrder = get_object_or_404(TableOrder, pk=table_id)
     if request.method == "GET":
         return render(request, "Orders/editTableOrder.html", {"form": TableOrderForm(instance=currentOrder)})
@@ -60,13 +63,21 @@ def editTorder(request, table_id):
                 newOrder = form.save(commit=False)
                 newOrder.save()
                 return redirect("table_orders")
+            else:
+                msg = 'Error while trying to save! Nothing saved.'
+                return render(request, "Orders/editTableOrder.html", {"form": TableOrderForm(instance=currentOrder),"msg":msg})
     return redirect("table_orders")
 
 
 def PlaceOrder(request):
     if request.POST:
-        quantities = request.POST.getlist("quatities")
-        orders = request.POST.getlist("orders")
+        summary=request.POST.getlist("summary")
+        quantities = []
+        orders= []
+        for i in summary:
+            q,o = i.split('$')
+            quantities.append(str(q))
+            orders.append(str(o))
         totalPrice = request.POST.get("sum")
         payMethod = request.POST.get("method")
         orderName = request.POST.get("name")
@@ -75,6 +86,8 @@ def PlaceOrder(request):
         if not request.user.is_authenticated:
             Order.objects.create(client=None,fullname=orderName,paymentMethod= payMethod,menuObjs=json.dumps(orders),quatities=json.dumps(quantities),total=totalPrice,alreadyPrepared=False)
         else:
+            cart = Carts.objects.filter(client=request.user.client)[0]
+            cart.menuObjs.clear()
             Order.objects.create(client=request.user.client, fullname=orderName, paymentMethod=payMethod,
                              menuObjs=json.dumps(orders), quatities=json.dumps(quantities), total=totalPrice,
                              alreadyPrepared=False)

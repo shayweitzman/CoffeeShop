@@ -29,14 +29,14 @@ def Cart(request):
                     if objects[i][0].lunch:
                         sum += round((float(objects[i][0].price)*0.8) * int(quantities[i]),2)
                     else:
-                        sum += objects[i][0].price * int(quantities[i])
+                        sum += round(float(objects[i][0].price) * int(quantities[i]), 2)
                 if request.user.client.Is_VIP:
                     discount = updateCoffee(request.user.client, orders, quantities)
                     if discount>0:
                         sum -= discount
                         msg = str(discount)+" Discounted from the bill, You are VIP!"
                 summary= zip(orders,quantities)
-                cart.menuObjs.clear()
+
                 return render(request, 'Cart/payment.html', {'summary':summary,'sum':sum,'msg':msg})
         for i in cart.menuObjs.all():
             if not i.availability:
@@ -45,21 +45,18 @@ def Cart(request):
 
 
 def updateCoffee(client,orders,quantities):
-    discounts  = 0
     price = 0
     for (objName, quantity) in zip(orders, quantities):
         menuObj = MenuObj.objects.filter(name=objName)[0]
         categories = [c.name for c in menuObj.category.all()]
         if 'Coffee' in categories:
-            print(client.coffeeCups)
             client.coffeeCups += int(quantity)
             if client.coffeeCups >= 10:
                 discounts = client.coffeeCups//10
                 client.coffeeCups = client.coffeeCups - discounts*10
                 client.save()
                 if menuObj.lunch:
-
                     price += round((float(menuObj.price) * 0.8) * discounts, 2)
                 else:
-                    price += discounts * menuObj.price
+                    price += round(float(menuObj.price * discounts), 2)
     return price

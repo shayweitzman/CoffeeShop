@@ -20,11 +20,13 @@ form {
 <br><br>
 <h2>Edit the resevation:</h2>
 <br>
+ <h3 style="color:red;">{{ msg }}</h3>
 <form method="POST">
         {% csrf_token %}
             {{ form.as_p }}
         <button type="submit" class="btn btn-danger" name="delete">Delete</button>
         <button type="submit" class="btn btn-primary">Edit</button>
+
 </form>
 
 </body>

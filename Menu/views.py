@@ -66,13 +66,11 @@ def sort(request):
             age = calcAge(request.user.client.birthday)
             if age < 18:
                 menu = list(menu)
-                print(menu)
                 menu=list(filter(lambda x:not x.ageLimitation,menu))
         except:
             pass
     else:
         menu = list(menu)
-        print(menu)
         menu = list(filter(lambda x: not x.ageLimitation, menu))
 
     return render(request, 'menu/all_menu.html', {'menu': menu, 'categiries': categiries})
