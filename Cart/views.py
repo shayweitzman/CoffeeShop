@@ -38,6 +38,9 @@ def Cart(request):
                 summary= zip(orders,quantities)
                 cart.menuObjs.clear()
                 return render(request, 'Cart/payment.html', {'summary':summary,'sum':sum,'msg':msg})
+        for i in cart.menuObjs.all():
+            if not i.availability:
+                cart.menuObjs.remove(i)
     return render(request,'Cart/cart.html',{'cart':cart})
 
 
