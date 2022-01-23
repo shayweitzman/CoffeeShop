@@ -36,6 +36,15 @@ def calcAge(birthdate):
 
 
 def sort(request):
+    msg = ''
+    if request.method == "POST":
+        cart = Cart.objects.filter(client=request.POST.get("userID"))[0]
+        menuObj = MenuObj.objects.filter(id=request.POST.get("menuObjID"))[0]
+        if menuObj in cart.menuObjs.all():
+            msg = 'Product already in your cart!'
+        else:
+            msg = 'Product added successfully!'
+            cart.menuObjs.add(menuObj)
     menu = MenuObj.objects.all()
     categiries = categoryMenu.objects.all()
     for categry in categiries:
@@ -73,4 +82,4 @@ def sort(request):
         menu = list(menu)
         menu = list(filter(lambda x: not x.ageLimitation, menu))
 
-    return render(request, 'menu/all_menu.html', {'menu': menu, 'categiries': categiries})
+    return render(request, 'menu/all_menu.html', {'menu': menu, 'categiries': categiries,'msg':msg})

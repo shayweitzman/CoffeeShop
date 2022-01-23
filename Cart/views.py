@@ -51,6 +51,7 @@ def updateCoffee(client,orders,quantities):
         categories = [c.name for c in menuObj.category.all()]
         if 'Coffee' in categories:
             client.coffeeCups += int(quantity)
+            print(client.coffeeCups)
             if client.coffeeCups >= 10:
                 discounts = client.coffeeCups//10
                 client.coffeeCups = client.coffeeCups - discounts*10
